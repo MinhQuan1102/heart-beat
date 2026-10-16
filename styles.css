@@ -445,11 +445,12 @@ button { -webkit-tap-highlight-color: transparent; }
   width: min(94vw, 1050px);
   height: 100%;
   margin: 0 auto;
-  padding: clamp(76px, 12vh, 130px) clamp(28px, 4vw, 60px) clamp(40px, 7vh, 80px);
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  align-items: end;
-  row-gap: clamp(18px, 3vh, 34px);
+  padding: clamp(76px, 12vh, 130px) clamp(20px, 4vw, 60px) clamp(34px, 6vh, 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(22px, 3vh, 38px);
 }
 
 .collage {
@@ -634,35 +635,25 @@ button { -webkit-tap-highlight-color: transparent; }
 
 
 /* Custom image on slide 3: preserve aspect ratio, center it, never overlap the text. */
-#birthdayPhoto {
-  display: block;
-  justify-self: center;
-  align-self: center;
-  width: auto;
-  height: auto;
-  max-width: min(72vw, 520px);
-  max-height: min(48vh, 520px);
-  object-fit: contain;
-  object-position: center;
-  opacity: 0;
-  transform: translateY(24px) scale(.96);
-}
+.scene-birthday.is-active
+{
 
-.scene-birthday.is-active #birthdayPhoto {
-  animation: customPhotoIn .9s .22s forwards var(--ease);
-}
-
-@keyframes customPhotoIn {
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  @keyframes customPhotoIn {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 }
-
+  
 .birthday-copy {
   width: min(86vw, 790px);
+  max-width: 100%;
   font-family: var(--slide3-font);
-  margin: clamp(2px, 1vh, 12px) 0 0 6%;
+  margin: 0 auto;
+  padding: 0 8px;
+  align-self: center;
+  text-align: left;
   opacity: 0;
   transform: translateY(15px);
 }
@@ -676,6 +667,8 @@ button { -webkit-tap-highlight-color: transparent; }
   font-size: clamp(23px, 2.7vw, 36px);
   font-weight: 400;
   letter-spacing: .035em;
+
+  text-align: left;
 }
 
 .birthday-copy p {
@@ -685,6 +678,8 @@ button { -webkit-tap-highlight-color: transparent; }
   line-height: 1.48;
   white-space: pre-line;
   letter-spacing: .018em;
+
+  text-align: left;
 }
 
 .confetti-layer {
@@ -803,6 +798,44 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 
 @media (max-width: 760px) {
+  .mail-row {
+    white-space: normal;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .mail-message {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .birthday-copy {
+    width: min(90vw, 790px);
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 8px;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  .birthday-copy h1,
+  .birthday-copy p {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .birthday-copy h1 {
+    font-size: clamp(21px, 7vw, 30px);
+  }
+
+  .birthday-copy p {
+    font-size: clamp(17px, 5.8vw, 24px);
+    line-height: 1.35;
+  }
+
   .inbox-content { transform: translateY(-2vh); }
 
   .hand-title {
@@ -834,7 +867,9 @@ button { -webkit-tap-highlight-color: transparent; }
 
   .birthday-layout {
     padding: 82px 20px 34px;
-    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
   }
 
   .collage {
@@ -845,13 +880,7 @@ button { -webkit-tap-highlight-color: transparent; }
     width: 90vw;
     margin-left: 3vw;
   }
-
-  #birthdayPhoto {
-    max-width: min(78vw, 460px);
-    max-height: 43vh;
-  }
-
-  .party-hat {
+.party-hat {
     width: 61px;
     height: 88px;
   }
@@ -869,24 +898,15 @@ button { -webkit-tap-highlight-color: transparent; }
   .mail-card { min-height: 70vh; }
   .birthday-layout { padding-top: 66px; padding-bottom: 20px; }
   .collage { width: min(48vw, 430px, 48vh); }
-  #birthdayPhoto { max-width: min(64vw, 420px); max-height: 38vh; }
-  .birthday-copy h1 { margin-bottom: 8px; font-size: clamp(22px, 6.4vw, 32px); }
+.birthday-copy h1 { margin-bottom: 8px; font-size: clamp(22px, 6.4vw, 32px); }
   .birthday-copy p { line-height: 1.35; font-size: clamp(18px, 5.1vw, 26px); }
 }
 
 
 @media (max-width: 700px) {
-  #birthdayPhoto {
-    /* max-width: min(88vw, 520px); */
-    max-height: 100%;
-  }
 }
 
 @media (max-height: 690px) {
-  #birthdayPhoto {
-    /* max-width: min(72vw, 500px); */
-    max-height: 100%;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
