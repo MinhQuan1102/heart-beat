@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Heart Beat - Offline</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <section class="heart-wrap" aria-label="Trái tim đập">
+      <svg id="heartSvg" class="heart-svg" viewBox="0 0 512 512" role="img" aria-label="Ảnh trong trái tim">
+        <defs>
+          <clipPath id="heartClip">
+            <path d="M256 455 C230 431 76 319 76 184 C76 111 126 66 190 66 C226 66 251 84 256 94 C261 84 286 66 322 66 C386 66 436 111 436 184 C436 319 282 431 256 455 Z"/>
+          </clipPath>
+          <radialGradient id="fallbackGlow" cx="50%" cy="45%" r="65%">
+            <stop offset="0%" stop-color="#ff9ecb"/>
+            <stop offset="55%" stop-color="#ff4f96"/>
+            <stop offset="100%" stop-color="#cf0d5e"/>
+          </radialGradient>
+        </defs>
+
+        <rect id="fallbackFill" x="70" y="60" width="372" height="405" fill="url(#fallbackGlow)" clip-path="url(#heartClip)" />
+        <image id="photoImage" x="64" y="58" width="384" height="410" preserveAspectRatio="xMidYMid slice" clip-path="url(#heartClip)" opacity="0" />
+        <path class="heart-border" d="M256 455 C230 431 76 319 76 184 C76 111 126 66 190 66 C226 66 251 84 256 94 C261 84 286 66 322 66 C386 66 436 111 436 184 C436 319 282 431 256 455 Z" />
+      </svg>
+
+      <div class="center-copy">
+        <div id="eyebrowText" class="eyebrow">STARDUST</div>
+        <div id="mainText" class="main-text">Love You</div>
+        <div id="nameText" class="name-text">You ♥ Me</div>
+      </div>
+    </section>
+  </main>
+
+  <button id="togglePanel" class="panel-toggle" type="button">Ẩn chỉnh sửa</button>
+
+  <aside id="controlPanel" class="controls">
+    <h1>Heart Beat</h1>
+    <p class="hint">Chạy hoàn toàn offline. Chọn ảnh từ máy, không upload đi đâu.</p>
+
+    <label>
+      Ảnh trong tim
+      <input id="imageInput" type="file" accept="image/*" />
+    </label>
+
+    <div class="row two">
+      <label>
+        Dòng nhỏ
+        <input id="eyebrowInput" type="text" value="STARDUST" maxlength="40" />
+      </label>
+      <label>
+        Tên
+        <input id="nameInput" type="text" value="You ♥ Me" maxlength="50" />
+      </label>
+    </div>
+
+    <label>
+      Nội dung chính
+      <input id="mainInput" type="text" value="Love You" maxlength="60" />
+    </label>
+
+    <div class="row two">
+      <label>
+        Màu tim
+        <input id="heartColor" type="color" value="#ff4f96" />
+      </label>
+      <label>
+        Màu chữ
+        <input id="textColor" type="color" value="#ffffff" />
+      </label>
+    </div>
+
+    <label>
+      Tốc độ đập
+      <input id="beatSpeed" type="range" min="0.6" max="2.2" step="0.1" value="1.2" />
+    </label>
+
+    <div class="actions">
+      <button id="clearImage" type="button">Bỏ ảnh</button>
+      <button id="fullscreenBtn" type="button">Toàn màn hình</button>
+    </div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
