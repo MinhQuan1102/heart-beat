@@ -368,6 +368,10 @@ button { -webkit-tap-highlight-color: transparent; }
   font-family: var(--slide3-font);
   color: var(--soft-white);
   background: var(--red-deep);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 .birthday-bg {
@@ -443,13 +447,14 @@ button { -webkit-tap-highlight-color: transparent; }
   position: relative;
   z-index: 5;
   width: min(94vw, 1050px);
-  height: 100%;
+  min-height: 100%;
+  height: auto;
   margin: 0 auto;
-  padding: clamp(76px, 12vh, 130px) clamp(20px, 4vw, 60px) clamp(34px, 6vh, 72px);
+  padding: clamp(76px, 12vh, 130px) clamp(20px, 4vw, 60px) clamp(50px, 8vh, 90px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: clamp(22px, 3vh, 38px);
 }
 
@@ -637,7 +642,8 @@ button { -webkit-tap-highlight-color: transparent; }
 /* Custom image on slide 3: preserve aspect ratio, center it, never overlap the text. */
 .scene-birthday.is-active
 {
-
+  
+  
   @keyframes customPhotoIn {
     to {
       opacity: 1;
@@ -645,7 +651,7 @@ button { -webkit-tap-highlight-color: transparent; }
     }
   }
 }
-  
+
 .birthday-copy {
   width: min(86vw, 790px);
   max-width: 100%;
@@ -866,9 +872,11 @@ button { -webkit-tap-highlight-color: transparent; }
   .attachment-button { margin-top: 36px; }
 
   .birthday-layout {
-    padding: 82px 20px 34px;
+    min-height: 100%;
+    height: auto;
+    padding: 82px 20px 56px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 24px;
   }
 
