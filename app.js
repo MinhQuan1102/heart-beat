@@ -7,17 +7,17 @@
     hello: 'hey babe!',
     inboxLine: "you've got new emails",
 
-    from: 'Your person',
-    to: 'You',
+    from: 'QiuQiu aka fen cứng aka big supporter ',
+    to: 'Người con gái đẹp nhất thế gian + 171026 mỹ từ tuyệt nhất dành cho cổ',
     message: 'Check out this awesome surprise for YOU!',
 
-    birthdayTitle: 'Happy Birthday, my love.',
+    birthdayTitle: 'Happy birthday my bestieee ٩(^‿^)۶',
     birthdayBody:
-      'Being with you is truly one of the best things that has ever happened to me. From the moment you came into my life, everything started to feel brighter and more meaningful. Thank you for loving me, for being here, and for making ordinary days feel special.',
+      'Sinh nhật nàng ta ở phương trời xa, có zui khong ta 😛 Toi đoán là vui lắm á, vì năm nay sự nghiệp của cổ sang trang mới nà ✿◕ ‿ ◕ Niềm vui của cổ cũng là niềm vui của toi :>> Chúc người đẹp lun được đón nhận nhiều hạnh phúc và may mắn, ở VN, ở Etihad, và đặc biệt là ở Taiwan ❤ Mong Chanh sẽ luôn rực rỡ và tỏa sáng như chính tên của cổ, sẽ gặp được người biết trân trọng viên ngọc sáng nì, và có nhiều lịch rảnh để bay zìa với gia đình và chúng toi nha ^-^ ❤ \nIu hết lòng ❤',
 
     // Đổi ảnh: bỏ ảnh của bạn vào folder assets rồi sửa path bên dưới.
     // Ví dụ: 'assets/my-photo.jpg'
-    photo: 'assets/photo.svg',
+    photo: 'assets/photo.jpeg',
   };
 
   const inboxStep = document.getElementById('inboxStep');

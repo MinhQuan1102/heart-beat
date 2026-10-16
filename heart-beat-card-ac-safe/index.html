@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#cf2e2a" />
+  <title>A little email for you</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="story" aria-live="polite">
+    <!-- STEP 1 - NEW EMAIL -->
+    <section id="inboxStep" class="scene scene-inbox is-active" aria-labelledby="helloText">
+      <div class="paper-noise" aria-hidden="true"></div>
+
+      <div class="inbox-content">
+        <p id="helloText" class="hand-title" data-content="hello">hey babe!</p>
+
+        <button id="openMailButton" class="envelope-button" type="button" aria-label="Open the email">
+          <span class="envelope" aria-hidden="true">
+            <span class="envelope-back"></span>
+            <span class="envelope-letter"></span>
+            <span class="envelope-front-left"></span>
+            <span class="envelope-front-right"></span>
+            <span class="envelope-flap"></span>
+            <span class="envelope-heart">♥</span>
+          </span>
+        </button>
+
+        <p class="hand-subtitle" data-content="inboxLine">you've got new emails</p>
+        <p class="click-hint">tap the envelope</p>
+      </div>
+    </section>
+
+    <!-- STEP 2 - EMAIL CARD -->
+    <section id="mailStep" class="scene scene-mail" aria-label="Email message">
+      <div class="paper-noise" aria-hidden="true"></div>
+
+      <article class="mail-card">
+        <div class="mail-row mail-row-from">
+          <span class="mail-label">From:</span>
+          <span class="mail-value" data-content="from"></span>
+        </div>
+
+        <div class="mail-row mail-row-to">
+          <span class="mail-label">To:</span>
+          <span class="mail-value" data-content="to"></span>
+        </div>
+
+        <div class="mail-message-block">
+          <div class="mail-label">Message:</div>
+          <p class="mail-message" data-content="message"></p>
+        </div>
+
+        <button id="attachmentButton" class="attachment-button" type="button">see attachment</button>
+      </article>
+    </section>
+
+    <!-- STEP 3 - BIRTHDAY ATTACHMENT -->
+    <section id="birthdayStep" class="scene scene-birthday" aria-label="Birthday card">
+      <div class="birthday-bg" aria-hidden="true"></div>
+
+      <div class="top-ribbon" aria-hidden="true"></div>
+      <div class="bunting bunting-one" aria-hidden="true"></div>
+      <div class="bunting bunting-two" aria-hidden="true"></div>
+
+      <div class="birthday-layout">
+        <div class="collage" aria-label="Birthday photo collage">
+          <span class="sticker sticker-star sticker-star-one">★</span>
+          <span class="sticker sticker-star sticker-star-two">★</span>
+          <span class="sticker sticker-star sticker-star-three">★</span>
+          <span class="sticker sticker-scribble">12</span>
+          <span class="sticker sticker-ring">☆</span>
+
+          <div class="cake-sticker" aria-hidden="true">
+            <span class="candle-flame"></span>
+            <span class="candle"></span>
+            <span class="cake-top"></span>
+            <span class="cake-base"></span>
+            <span class="cake-plate"></span>
+          </div>
+
+          <div class="party-hat" aria-hidden="true">
+            <span class="party-hat-text">HAPPY<br>BIRTHDAY</span>
+          </div>
+
+          <div class="photo-cutout">
+            <!-- HARD CODE IMAGE: đổi path trong app.js: CONTENT.photo -->
+            <img id="birthdayPhoto" src="assets/photo.svg" alt="Birthday memory" />
+          </div>
+        </div>
+
+        <div class="birthday-copy">
+          <h1 data-content="birthdayTitle">Happy Birthday, my love.</h1>
+          <p data-content="birthdayBody"></p>
+        </div>
+      </div>
+
+      <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+    </section>
+
+    <div id="transitionCurtain" class="transition-curtain" aria-hidden="true"></div>
+  </main>
+
+  <!--
+    CUSTOM BOX ĐÃ BỎ / COMMENT THEO YÊU CẦU.
+    Tất cả nội dung + ảnh được hard-code ở đầu file app.js trong object CONTENT.
+  -->
+
+  <script src="app.js"></script>
+</body>
+</html>

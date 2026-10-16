@@ -6,6 +6,43 @@
   <meta name="theme-color" content="#cf2e2a" />
   <title>A little email for you</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .party-bunting {
+      position: absolute;
+      top: -18px; left: 0; right: 0;
+      width: 100%;
+      height: clamp(82px, 12vw, 145px);
+      z-index: 8;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .party-bunting svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    .bunting-string { fill: none; stroke: #6f594b; stroke-width: 4; stroke-linecap: round; opacity: .9; }
+    .bunting-flags polygon { stroke: rgba(92,65,54,.42); stroke-width: 2; vector-effect: non-scaling-stroke; }
+    .flag-cream { fill: #e7e0d2; }
+    .flag-teal { fill: #4f9b91; }
+    .flag-red { fill: #d56a67; }
+
+    /* Slide 3: make the custom photo larger while preserving its aspect ratio. */
+    #birthdayPhoto {
+      width: auto !important;
+      height: auto !important;
+      max-width: min(68vw, 720px) !important;
+      max-height: 62vh !important;
+      object-fit: contain !important;
+      object-position: center !important;
+      flex-shrink: 1;
+    }
+    @media (max-width: 640px) {
+      .party-bunting { top: -12px; height: 90px; }
+      .bunting-string { stroke-width: 3; }
+      #birthdayPhoto {
+        max-width: 82vw !important;
+        max-height: 56vh !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="story" aria-live="polite">
@@ -60,35 +97,37 @@
     <section id="birthdayStep" class="scene scene-birthday" aria-label="Birthday card">
       <div class="birthday-bg" aria-hidden="true"></div>
 
-      <div class="top-ribbon" aria-hidden="true"></div>
-      <div class="bunting bunting-one" aria-hidden="true"></div>
-      <div class="bunting bunting-two" aria-hidden="true"></div>
+      <div class="party-bunting" aria-hidden="true">
+        <svg viewBox="0 0 1440 150" preserveAspectRatio="none" focusable="false">
+          <path class="bunting-string" d="M-20 25 Q160 58 340 28 T700 30 T1060 26 T1460 30" />
+          <g class="bunting-flags">
+            <polygon class="flag flag-cream" points="5,27 58,34 28,91" />
+            <polygon class="flag flag-teal" points="70,37 121,43 92,100" />
+            <polygon class="flag flag-red" points="136,43 190,45 166,105" />
+            <polygon class="flag flag-cream" points="205,43 258,39 237,100" />
+            <polygon class="flag flag-red" points="274,37 329,31 309,94" />
+            <polygon class="flag flag-teal" points="347,30 402,34 373,96" />
+            <polygon class="flag flag-cream" points="420,34 474,39 445,100" />
+            <polygon class="flag flag-red" points="492,40 546,42 520,103" />
+            <polygon class="flag flag-cream" points="563,41 618,38 594,100" />
+            <polygon class="flag flag-teal" points="635,35 691,33 665,96" />
+            <polygon class="flag flag-red" points="709,32 765,35 736,98" />
+            <polygon class="flag flag-cream" points="782,36 838,40 809,103" />
+            <polygon class="flag flag-teal" points="855,40 910,41 882,103" />
+            <polygon class="flag flag-red" points="928,40 983,37 959,100" />
+            <polygon class="flag flag-cream" points="1001,34 1056,30 1033,94" />
+            <polygon class="flag flag-teal" points="1074,29 1129,32 1100,95" />
+            <polygon class="flag flag-red" points="1147,33 1202,38 1173,100" />
+            <polygon class="flag flag-cream" points="1220,39 1275,42 1248,103" />
+            <polygon class="flag flag-teal" points="1293,41 1348,38 1322,100" />
+            <polygon class="flag flag-red" points="1366,35 1421,29 1397,94" />
+          </g>
+        </svg>
+      </div>
 
       <div class="birthday-layout">
-        <div class="collage" aria-label="Birthday photo collage">
-          <span class="sticker sticker-star sticker-star-one">★</span>
-          <span class="sticker sticker-star sticker-star-two">★</span>
-          <span class="sticker sticker-star sticker-star-three">★</span>
-          <span class="sticker sticker-scribble">12</span>
-          <span class="sticker sticker-ring">☆</span>
 
-          <div class="cake-sticker" aria-hidden="true">
-            <span class="candle-flame"></span>
-            <span class="candle"></span>
-            <span class="cake-top"></span>
-            <span class="cake-base"></span>
-            <span class="cake-plate"></span>
-          </div>
-
-          <div class="party-hat" aria-hidden="true">
-            <span class="party-hat-text">HAPPY<br>BIRTHDAY</span>
-          </div>
-
-          <div class="photo-cutout">
-            <!-- HARD CODE IMAGE: đổi path trong app.js: CONTENT.photo -->
-            <img id="birthdayPhoto" src="assets/photo.svg" alt="Birthday memory" />
-          </div>
-        </div>
+        <img id="birthdayPhoto" src="assets/photo.svg" alt="Birthday memory" />
 
         <div class="birthday-copy">
           <h1 data-content="birthdayTitle">Happy Birthday, my love.</h1>
