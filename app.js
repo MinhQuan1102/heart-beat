@@ -1,179 +1,119 @@
 (() => {
-  const root = document.documentElement;
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  const photoImage = document.getElementById('photoImage');
-  const fallbackFill = document.getElementById('fallbackFill');
+  // ============================================================
+  // HARD-CODE NỘI DUNG Ở ĐÂY
+  // Không có custom box trên web. Chỉ sửa các giá trị bên dưới.
+  // ============================================================
+  const CONTENT = {
+    hello: 'hey babe!',
+    inboxLine: "you've got new emails",
 
-  const imageInput = document.getElementById('imageInput');
-  const eyebrowInput = document.getElementById('eyebrowInput');
-  const mainInput = document.getElementById('mainInput');
-  const nameInput = document.getElementById('nameInput');
-  const heartColor = document.getElementById('heartColor');
-  const textColor = document.getElementById('textColor');
-  const beatSpeed = document.getElementById('beatSpeed');
-  const clearImage = document.getElementById('clearImage');
-  const fullscreenBtn = document.getElementById('fullscreenBtn');
-  const togglePanel = document.getElementById('togglePanel');
-  const controlPanel = document.getElementById('controlPanel');
+    from: 'Your person',
+    to: 'You',
+    message: 'Check out this awesome surprise for YOU!',
 
-  const eyebrowText = document.getElementById('eyebrowText');
-  const mainText = document.getElementById('mainText');
-  const nameText = document.getElementById('nameText');
+    birthdayTitle: 'Happy Birthday, my love.',
+    birthdayBody:
+      'Being with you is truly one of the best things that has ever happened to me. From the moment you came into my life, everything started to feel brighter and more meaningful. Thank you for loving me, for being here, and for making ordinary days feel special.',
 
-  function bindText(input, output) {
-    input.addEventListener('input', () => {
-      output.textContent = input.value;
-    });
-  }
+    // Đổi ảnh: bỏ ảnh của bạn vào folder assets rồi sửa path bên dưới.
+    // Ví dụ: 'assets/my-photo.jpg'
+    photo: 'assets/photo.svg',
+  };
 
-  bindText(eyebrowInput, eyebrowText);
-  bindText(mainInput, mainText);
-  bindText(nameInput, nameText);
+  const inboxStep = document.getElementById('inboxStep');
+  const mailStep = document.getElementById('mailStep');
+  const birthdayStep = document.getElementById('birthdayStep');
+  const openMailButton = document.getElementById('openMailButton');
+  const attachmentButton = document.getElementById('attachmentButton');
+  const transitionCurtain = document.getElementById('transitionCurtain');
+  const birthdayPhoto = document.getElementById('birthdayPhoto');
+  const confettiLayer = document.getElementById('confettiLayer');
 
-  heartColor.addEventListener('input', () => {
-    root.style.setProperty('--heart', heartColor.value);
-    fallbackFill.setAttribute('fill', heartColor.value);
-  });
+  let busy = false;
 
-  textColor.addEventListener('input', () => {
-    root.style.setProperty('--text', textColor.value);
-  });
-
-  beatSpeed.addEventListener('input', () => {
-    root.style.setProperty('--beat-duration', `${beatSpeed.value}s`);
-  });
-
-  imageInput.addEventListener('change', () => {
-    const file = imageInput.files && imageInput.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      photoImage.setAttribute('href', reader.result);
-      photoImage.style.opacity = '1';
-      fallbackFill.style.opacity = '.22';
-    };
-    reader.readAsDataURL(file);
-  });
-
-  clearImage.addEventListener('click', () => {
-    imageInput.value = '';
-    photoImage.removeAttribute('href');
-    photoImage.style.opacity = '0';
-    fallbackFill.style.opacity = '1';
-  });
-
-  fullscreenBtn.addEventListener('click', async () => {
-    try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-      } else {
-        await document.exitFullscreen();
+  function applyContent() {
+    document.querySelectorAll('[data-content]').forEach((el) => {
+      const key = el.dataset.content;
+      if (Object.prototype.hasOwnProperty.call(CONTENT, key)) {
+        el.textContent = CONTENT[key];
       }
-    } catch (_) {}
-  });
-
-  togglePanel.addEventListener('click', () => {
-    const hidden = controlPanel.classList.toggle('hidden');
-    togglePanel.textContent = hidden ? 'Hiện chỉnh sửa' : 'Ẩn chỉnh sửa';
-  });
-
-  // Particle heart effect — implemented from scratch for this offline demo.
-  let width = 0;
-  let height = 0;
-  let dpr = 1;
-  const particles = [];
-  const maxParticles = 1200;
-  let lastTime = performance.now();
-
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function heartPoint(t, scale) {
-    const x = 16 * Math.pow(Math.sin(t), 3);
-    const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-    return { x: x * scale, y: -y * scale };
-  }
-
-  function hexToRgb(hex) {
-    const clean = hex.replace('#', '');
-    const n = parseInt(clean.length === 3
-      ? clean.split('').map(c => c + c).join('')
-      : clean, 16);
-    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
-  }
-
-  function spawnParticle() {
-    const t = Math.random() * Math.PI * 2;
-    const scale = Math.min(width, height) / 46;
-    const p = heartPoint(t, scale);
-    const len = Math.hypot(p.x, p.y) || 1;
-    const speed = 28 + Math.random() * 65;
-
-    particles.push({
-      x: width / 2 + p.x,
-      y: height / 2 + p.y + 8,
-      vx: (p.x / len) * speed,
-      vy: (p.y / len) * speed,
-      life: 0,
-      ttl: 1.2 + Math.random() * 1.2,
-      size: 1.5 + Math.random() * 3.2,
-      wobble: Math.random() * Math.PI * 2,
     });
 
-    if (particles.length > maxParticles) {
-      particles.splice(0, particles.length - maxParticles);
+    if (birthdayPhoto) {
+      birthdayPhoto.src = CONTENT.photo;
     }
   }
 
-  function updateAndDraw(now) {
-    const dt = Math.min((now - lastTime) / 1000, 0.033);
-    lastTime = now;
+  function simpleSwitch(from, to, delay = 430) {
+    from.classList.add('is-leaving');
 
-    ctx.clearRect(0, 0, width, height);
-    const rgb = hexToRgb(heartColor.value);
-
-    const spawnCount = Math.max(2, Math.floor(dt * 190));
-    for (let i = 0; i < spawnCount; i++) spawnParticle();
-
-    ctx.globalCompositeOperation = 'lighter';
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.life += dt;
-      if (p.life >= p.ttl) {
-        particles.splice(i, 1);
-        continue;
-      }
-
-      const k = p.life / p.ttl;
-      p.x += p.vx * dt;
-      p.y += p.vy * dt;
-      p.vx *= 0.992;
-      p.vy *= 0.992;
-      p.wobble += dt * 5;
-
-      const alpha = Math.pow(1 - k, 1.6);
-      const size = p.size * (1 + k * 2.2);
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
-      ctx.arc(p.x + Math.sin(p.wobble) * 2, p.y, size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalCompositeOperation = 'source-over';
-
-    requestAnimationFrame(updateAndDraw);
+    window.setTimeout(() => {
+      from.classList.remove('is-active', 'is-leaving');
+      to.classList.add('is-active');
+    }, delay);
   }
 
-  window.addEventListener('resize', resize);
-  resize();
-  requestAnimationFrame(updateAndDraw);
+  function openEmail() {
+    if (busy) return;
+    busy = true;
+
+    openMailButton.classList.add('is-opening');
+
+    window.setTimeout(() => {
+      simpleSwitch(inboxStep, mailStep, 390);
+    }, 620);
+
+    window.setTimeout(() => {
+      openMailButton.classList.remove('is-opening');
+      busy = false;
+    }, 1260);
+  }
+
+  function createConfetti() {
+    confettiLayer.innerHTML = '';
+
+    const colors = ['#d9cfbd', '#1d7773', '#d2b96d', '#8e2725', '#e3dfd6'];
+    const pieces = 44;
+
+    for (let i = 0; i < pieces; i++) {
+      const piece = document.createElement('span');
+      piece.className = 'confetti';
+      piece.style.left = `${Math.random() * 100}%`;
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.setProperty('--delay', `${0.2 + Math.random() * 1.2}s`);
+      piece.style.setProperty('--fall-time', `${2.4 + Math.random() * 2.2}s`);
+      piece.style.setProperty('--drift', `${-70 + Math.random() * 140}px`);
+      piece.style.setProperty('--spin', `${360 + Math.random() * 760}deg`);
+      piece.style.width = `${5 + Math.random() * 7}px`;
+      piece.style.height = `${8 + Math.random() * 9}px`;
+      piece.style.transform = `rotate(${Math.random() * 180}deg)`;
+      confettiLayer.appendChild(piece);
+    }
+  }
+
+  function openAttachment() {
+    if (busy) return;
+    busy = true;
+
+    transitionCurtain.classList.remove('is-wiping');
+    void transitionCurtain.offsetWidth;
+    transitionCurtain.classList.add('is-wiping');
+
+    // Ở giữa curtain wipe, đổi scene để không thấy hard cut.
+    window.setTimeout(() => {
+      mailStep.classList.remove('is-active', 'is-leaving');
+      birthdayStep.classList.add('is-active');
+      createConfetti();
+    }, 470);
+
+    window.setTimeout(() => {
+      transitionCurtain.classList.remove('is-wiping');
+      busy = false;
+    }, 1160);
+  }
+
+  openMailButton.addEventListener('click', openEmail);
+  attachmentButton.addEventListener('click', openAttachment);
+
+  applyContent();
 })();

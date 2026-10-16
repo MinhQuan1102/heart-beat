@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="70%">
+      <stop offset="0" stop-color="#ffbfd8"/>
+      <stop offset="0.48" stop-color="#e85e96"/>
+      <stop offset="1" stop-color="#6d183d"/>
+    </radialGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <circle cx="220" cy="230" r="95" fill="#ffdceb" opacity=".28" filter="url(#blur)"/>
+  <circle cx="930" cy="310" r="120" fill="#ff7cad" opacity=".24" filter="url(#blur)"/>
+  <circle cx="720" cy="890" r="150" fill="#ffcfdf" opacity=".14" filter="url(#blur)"/>
+  <g fill="#fff" opacity=".15">
+    <path d="M288 403c-31-29-81-12-81 33 0 60 81 105 81 105s81-45 81-105c0-45-50-62-81-33z"/>
+    <path d="M874 505c-46-42-118-18-118 48 0 88 118 153 118 153s118-65 118-153c0-66-72-90-118-48z"/>
+  </g>
+  <text x="600" y="570" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="74" font-style="italic" font-weight="700">Our Memory</text>
+  <text x="600" y="640" text-anchor="middle" fill="#fff" opacity=".78" font-family="Arial, sans-serif" font-size="28" letter-spacing="10">TOGETHER</text>
+</svg>
